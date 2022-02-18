@@ -1,0 +1,47 @@
+schemaVersion: '2.0.0'
+commandTests:
+  - name: 'Ensure that Xdebug and OPcache isn''t enabled'
+    command: bash
+    args: ["-c", "php -v"]
+    excludedOutput: ['.*with Xdebug.*', '.*with Zend OPcache.*']
+  - name: 'Test that you can enable opcache'
+    envVars:
+      - key: OPCACHE_ENABLED
+        value: true
+    setup: [["/bin/entrypoint.sh"]]
+    command: bash
+    args: ["-c", "php -m"]
+    expectedOutput: [".*Zend OPcache.*"]
+  - name: 'Test that you can enable xdebug'
+    envVars:
+      - key: XDEBUG_ENABLED
+        value: true
+    setup: [["/bin/entrypoint.sh"]]
+    command: bash
+    args: ["-c", "php -m"]
+    expectedOutput: [".*Xdebug.*"]
+  - name: 'Check changing id of user'
+    envVars:
+      - key: PUID
+        value: 1001
+    setup: [["/bin/entrypoint.sh"]]
+    command: bash
+    args: ["-c", "id -u www-data"]
+    expectedOutput: ["1001"]
+  - name: 'Check changing id of group'
+    envVars:
+      - key: PGID
+        value: 1002
+    setup: [["/bin/entrypoint.sh"]]
+    command: bash
+    args: ["-c", "id -G www-data"]
+    expectedOutput: ["1002"]
+  - name: "Check ability to change memory_limit"
+    envVars:
+      - key: PHP_MEMORY_LIMIT
+        value: '256M'
+    setup: [["/bin/entrypoint.sh"]]
+    command: bash
+    args: ["-c", "php -i | grep memory_limit"]
+    expectedOutput: ["256M"]
+
