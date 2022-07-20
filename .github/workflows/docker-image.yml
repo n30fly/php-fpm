@@ -28,7 +28,7 @@ jobs:
         file: dist/7.4/Dockerfile
         tags: |
           n30fly/php-fpm:7.4
-          n30fly/php-fpm:7.4.29
+          n30fly/php-fpm:7.4.30
     - name: Run tests
       run: |
         curl -sLO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && \
@@ -42,6 +42,6 @@ jobs:
         file: dist/7.4/Dockerfile
         tags: |
           n30fly/php-fpm:7.4
-          n30fly/php-fpm:7.4.29
+          n30fly/php-fpm:7.4.30
           ghcr.io/n30fly/php-fpm:7.4
-          ghcr.io/n30fly/php-fpm:7.4.29
+          ghcr.io/n30fly/php-fpm:7.4.30

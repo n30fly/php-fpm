@@ -1,4 +1,4 @@
-FROM php:7.4.29-fpm-alpine
+FROM php:7.4.30-fpm-alpine
 
 ARG PHPREDIS_VERSION=5.1.1
 ARG JQ_VERSION=1.6
@@ -66,7 +66,7 @@ RUN apk upgrade --update --no-cache \
         patch \
     && pecl install -o -f mcrypt-${MCRYPT_VERSION} xdebug-${XDEBUG_VERSION} igbinary \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd sockets pdo_mysql mysqli pcntl zip \
+    && docker-php-ext-install -j$(nproc) gd sockets pdo_mysql mysqli pcntl zip intl xsl soap bcmath \
     && docker-php-ext-enable mcrypt igbinary \
     && mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
