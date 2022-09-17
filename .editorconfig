@@ -8,3 +8,6 @@ indent_style = space
 
 [*.yml]
 indent_size = 2
+
+[*.sh]
+indent_size = 2

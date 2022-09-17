@@ -47,14 +47,29 @@ if [ ! -z "$XDEBUG_REMOTE_HOST" ]; then
 fi
 
 if [ ! -z "$XDEBUG_ENABLED" ]; then
+  PHP_VERSION=$(php -r "echo version_compare(PHP_VERSION, '8.0.0') >= 0 ? '8' : '7';")
+
+  XDEBUG_MODE="xdebug.remote_enable=on"
+  XDEBUG_HOST="xdebug.remote_host=$REMOTE_HOST"
+  XDEBUG_PORT="xdebug.remote_port=9000"
+  XDEBUG_DISCOVER="xdebug.remote_connect_back=0"
+
+  if [ "$PHP_VERSION" -eq "8" ]; then
+    XDEBUG_MODE="xdebug.mode=debug"
+    XDEBUG_HOST="xdebug.client_host=$REMOTE_HOST"
+    XDEBUG_PORT="xdebug.client_port=9000"
+    XDEBUG_DISCOVER="xdebug.discover_client_host=0"
+  fi
+
   { \
     echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)"; \
-    echo "xdebug.remote_enable=on"; \
-    echo "xdebug.remote_host=$REMOTE_HOST"; \
-    echo "xdebug.remote_port=9000"; \
+    echo "$XDEBUG_MODE"; \
+    echo "$XDEBUG_HOST"; \
+    echo "$XDEBUG_PORT"; \
     echo "xdebug.remote_autostart=off"; \
+    echo "xdebug.start_with_request=yes"; \
     echo "xdebug.max_nesting_level=9999"; \
-    echo "xdebug.remote_connect_back=0"; \
+    echo "$XDEBUG_DISCOVER"; \
     echo "xdebug.idekey=PHPSTORM"; \
   } > /usr/local/etc/php/conf.d/xdebug-enabled.ini
 
