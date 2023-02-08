@@ -65,7 +65,7 @@ RUN apk upgrade --update --no-cache \
         msmtp \
         patch \
     && pecl install -o -f mcrypt-${MCRYPT_VERSION} xdebug-${XDEBUG_VERSION} igbinary \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr \
     && docker-php-ext-install -j$(nproc) gd sockets pdo_mysql mysqli pcntl zip intl xsl soap bcmath \
     && docker-php-ext-enable mcrypt igbinary \
     && mkdir -p /usr/src/php/ext/redis \
