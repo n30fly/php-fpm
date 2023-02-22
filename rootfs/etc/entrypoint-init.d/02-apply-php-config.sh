@@ -53,12 +53,14 @@ if [ ! -z "$XDEBUG_ENABLED" ]; then
   XDEBUG_HOST="xdebug.remote_host=$REMOTE_HOST"
   XDEBUG_PORT="xdebug.remote_port=9000"
   XDEBUG_DISCOVER="xdebug.remote_connect_back=0"
+  XDEBUG_LOG=""
 
   if [ "$PHP_VERSION" -eq "8" ]; then
     XDEBUG_MODE="xdebug.mode=debug"
     XDEBUG_HOST="xdebug.client_host=$REMOTE_HOST"
     XDEBUG_PORT="xdebug.client_port=9000"
     XDEBUG_DISCOVER="xdebug.discover_client_host=0"
+    XDEBUG_LOG="xdebug.log_level=0"
   fi
 
   { \
@@ -71,6 +73,7 @@ if [ ! -z "$XDEBUG_ENABLED" ]; then
     echo "xdebug.max_nesting_level=9999"; \
     echo "$XDEBUG_DISCOVER"; \
     echo "xdebug.idekey=PHPSTORM"; \
+    echo "$XDEBUG_LOG"; \
   } > /usr/local/etc/php/conf.d/xdebug-enabled.ini
 
   ping -c1 host.docker.internal && :
