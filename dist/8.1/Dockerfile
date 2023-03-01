@@ -1,4 +1,4 @@
-FROM php:8.1.15-fpm-alpine
+FROM php:8.1.16-fpm-alpine
 
 ARG PHPREDIS_VERSION=5.1.1
 ARG JQ_VERSION=1.6
