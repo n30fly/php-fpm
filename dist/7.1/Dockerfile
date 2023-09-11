@@ -1,7 +1,7 @@
 FROM php:7.1.33-fpm-alpine
 
 ARG PHPREDIS_VERSION=5.1.1
-ARG JQ_VERSION=1.6
+ARG JQ_VERSION=1.7
 ARG XDEBUG_VERSION=2.9.2
 ARG MCRYPT_VERSION=1.0.4
 
@@ -86,9 +86,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
-    && curl -s -L -o /tmp/jq-release.key https://raw.githubusercontent.com/stedolan/jq/master/sig/jq-release.key \
-    && curl -s -L -o /tmp/jq-linux64.asc https://raw.githubusercontent.com/stedolan/jq/master/sig/v${JQ_VERSION}/jq-linux64.asc \
-    && curl -s -L -o /tmp/jq-linux64 https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 \
+    && curl -s -L -o /tmp/jq-release.key https://raw.githubusercontent.com/stedolan/jq/master/sig/jq-release-new.key \
+    && curl -s -L -o /tmp/jq-linux64.asc https://raw.githubusercontent.com/stedolan/jq/master/sig/v${JQ_VERSION}/jq-linux-amd64.asc \
+    && curl -s -L -o /tmp/jq-linux64 https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64 \
     && gpg --import /tmp/jq-release.key \
     && gpg --verify /tmp/jq-linux64.asc /tmp/jq-linux64 \
     && cp /tmp/jq-linux64 /usr/bin/jq \
