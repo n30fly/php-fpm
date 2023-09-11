@@ -94,6 +94,6 @@ jobs:
         file: dist/8.1/Dockerfile
         tags: |
           n30fly/php-fpm:8.1
-          n30fly/php-fpm:8.1.16
+          n30fly/php-fpm:8.1.22
           ghcr.io/n30fly/php-fpm:8.1
-          ghcr.io/n30fly/php-fpm:8.1.16
+          ghcr.io/n30fly/php-fpm:8.1.22
